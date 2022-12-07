@@ -1,0 +1,13 @@
+name: end-to-end
+
+on:
+  pull_request:
+    types: [opened, synchronize] 
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set output parameter
+      run: echo 'i am running'
+
