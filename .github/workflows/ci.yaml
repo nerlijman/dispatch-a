@@ -1,13 +1,13 @@
-name: end-to-end
+name: ci
+
 
 on:
-  pull_request:
-    types: [opened, synchronize] 
+  workflow_dispatch
 
 jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
-    - name: Set output parameter
+    - name: Say something
       run: echo 'i am running'
 
