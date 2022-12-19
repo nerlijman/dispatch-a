@@ -6,6 +6,7 @@ on:
 
 jobs:
   my_job:
+    run-name: Deploy to ${{ github.event.inputs.origin }}
     runs-on: ubuntu-latest
     steps:
     - name: Say something
