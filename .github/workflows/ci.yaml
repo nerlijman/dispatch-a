@@ -1,5 +1,5 @@
 name: ci
-run-name: Deploy to ${{ github.event.inputs.origin }}
+run-name: Tests triggered by ${{ github.event.inputs.origin }}
 
 on:
   workflow_dispatch:
