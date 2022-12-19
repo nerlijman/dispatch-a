@@ -2,7 +2,12 @@ name: ci
 
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      origin:
+        description: 'Service who triggered the tests'
+        required: false
+        type: string      
 
 jobs:
   my_job:
