@@ -8,7 +8,7 @@ on:
         description: 'Service who triggered the tests'
         required: false
         type: string
-        default: ${{ github.triggering_actor }}
+        default: "${{ github.triggering_actor }}"
 
 jobs:
   my_job:
