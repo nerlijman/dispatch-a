@@ -1,6 +1,6 @@
 name: ci
-run-name: Tests triggered by ${{ github.event.inputs.origin }}
-#run-name: Tests triggered by ${{ github.event.repository.name }}
+#run-name: Tests triggered by ${{ github.event.inputs.origin }}
+run-name: Tests triggered by ${{ env.ORIGIN }}
 on:
   workflow_dispatch:
     inputs:
@@ -8,12 +8,16 @@ on:
         description: 'Service who triggered the tests'
         required: false
         type: string
-        default: "${{ github.triggering_actor }}"
 
 jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
+    - name: set actor
+      env:
+        ORIGIN: ${{ github.event.inputs.origin ||  github.actor}}
+    
+    
     - name: Say something
       run: echo 'i am running' 
 
