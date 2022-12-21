@@ -1,6 +1,5 @@
 name: ci
-#run-name: Tests triggered by ${{ github.event.inputs.origin }}
-run-name: Tests triggered by ${{ env.ORIGIN }}
+run-name: Tests triggered by ${{ github.event.inputs.origin }}
 on:
   workflow_dispatch:
     inputs:
