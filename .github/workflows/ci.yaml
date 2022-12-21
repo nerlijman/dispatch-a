@@ -13,12 +13,10 @@ jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
-    - name: set actor
-      env:
-        ORIGIN: ${{ github.event.inputs.origin ||  github.actor}}
-      if: env.actor
-      run: echo "Flag is available and true"
     
     - name: Say something
       run: echo 'i am running' 
+      
+    - name: Make it fail
+      run: pytest
 
