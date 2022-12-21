@@ -19,3 +19,26 @@ jobs:
     - name: Make it fail
       run: pytest
 
+  slack-notification:
+    name: Send Slack notification
+    runs-on: ubuntu-latest
+    needs: [my_job]
+    if: always() && (needs.my_job.result == 'failure')
+    steps:
+      - name: Set notification message
+        id: set-message
+        run: |
+          if [[ ${{ needs.my_job.result }} == "failure" ]]
+          then
+            MESSAGE="There was an error building the image"
+            STATUS="failure"
+          fi
+          echo "::set-output name=message::$MESSAGE"
+          echo "::set-output name=status::$STATUS"
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: '${{ steps.set-message.outputs.message }}'
+          SLACK_COLOR: ${{ steps.set-message.outputs.status }}
+          SLACK_USERNAME: 'Github Actions'
