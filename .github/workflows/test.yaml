@@ -1,0 +1,16 @@
+name: Print Branch Name
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  which_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Variables
+        run: |
+          echo ${{ github.head_ref }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.ref }}
