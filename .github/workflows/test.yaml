@@ -8,7 +8,7 @@ on:
 jobs: 
   print_the_branch_only_on_main:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}    
+    if: ${{ github.ref_name == 'main2' }}    
     steps:
       - name: Print Variables
         run: |
