@@ -6,8 +6,9 @@ on:
       - main
 
 jobs: 
-  which_branch:
+  print_the_branch_only_on_main:
     runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}    
     steps:
       - name: Print Variables
         run: |
