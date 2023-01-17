@@ -1,4 +1,4 @@
-name: ci
+name: ci 
 run-name: Tests triggered by ${{ github.event.inputs.origin }}
 on:
   workflow_dispatch:
