@@ -41,4 +41,5 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: '${{ steps.set-message.outputs.message }}'
           SLACK_COLOR: ${{ steps.set-message.outputs.status }}
+          SLACK_TITLE: '${{ github.event.inputs.origin }}'
           SLACK_USERNAME: 'Github Actions'
