@@ -36,10 +36,11 @@ jobs:
         run: |
           if [[ ${{ needs.my_job.result }} == "failure" ]]
           then
-            MESSAGE="There was an error building the image"
+            AUTHOR='${{ github.event.inputs.author }}'          
+            MESSAGE=format('{0} by {1}', 'There was an error building the image')
             STATUS="failure"
             ORIGIN='${{ github.event.inputs.origin }}'
-            AUTHOR='${{ github.event.inputs.author }}'
+
           fi
           echo "::set-output name=message::$MESSAGE"
           echo "::set-output name=status::$STATUS"
@@ -50,5 +51,5 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: '${{ steps.set-message.outputs.message }}'
           SLACK_COLOR: ${{ steps.set-message.outputs.status }}
-          SLACK_TITLE: '${{ steps.set-message.outputs.author }}'
+          SLACK_TITLE: '${{ steps.set-message.outputs.origin }}'
           SLACK_USERNAME: 'Github Actions'
