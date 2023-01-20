@@ -23,6 +23,7 @@ jobs:
       run: |
             echo '${{ github.event_name }}'
             echo '${{ github.event.inputs.author }}'
+            echo '${{ github.event.inputs.origin }}'
       
     - name: Make it fail
       run: pytest
