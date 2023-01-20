@@ -36,15 +36,14 @@ jobs:
         run: |
           if [[ ${{ needs.my_job.result }} == "failure" ]]
           then
-            AUTHOR='${{ github.event.inputs.author }}'          
-            MESSAGE=format('{0} by {1}', 'There was an error building the image', $AUTHOR)
+            AUTHOR='${{ github.event.inputs.author }}'
+            MESSAGE='There was an error building the image by $AUTHOR'
             STATUS="failure"
             ORIGIN='${{ github.event.inputs.origin }}'
 
           fi
           echo "::set-output name=message::$MESSAGE"
           echo "::set-output name=status::$STATUS"
-          echo "::set-output name=author::$AUTHOR"
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
