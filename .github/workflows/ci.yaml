@@ -7,6 +7,12 @@ on:
         description: 'Service who triggered the tests'
         required: false
         type: string
+      author:
+        description: 'Author who triggered the tests'
+        required: false
+        type: string
+        default: 'unknown'
+      
 
 jobs:
   my_job:
@@ -32,14 +38,17 @@ jobs:
           then
             MESSAGE="There was an error building the image"
             STATUS="failure"
+            ORIGIN='${{ github.event.inputs.origin }}'
+            AUTHOR='${{ github.event.inputs.author }}'
           fi
           echo "::set-output name=message::$MESSAGE"
           echo "::set-output name=status::$STATUS"
+          echo "::set-output name=author::$AUTHOR"
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: '${{ steps.set-message.outputs.message }}'
           SLACK_COLOR: ${{ steps.set-message.outputs.status }}
-          SLACK_TITLE: '${{ github.event.inputs.origin }}'
+          SLACK_TITLE: '${{ steps.set-message.outputs.author }}'
           SLACK_USERNAME: 'Github Actions'
