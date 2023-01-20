@@ -1,6 +1,10 @@
 name: ci 
 run-name: Tests triggered by ${{ github.event.inputs.origin }}
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       origin:
