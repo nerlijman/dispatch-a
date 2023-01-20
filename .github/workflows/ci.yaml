@@ -31,7 +31,7 @@ jobs:
     name: Send Slack notification
     runs-on: ubuntu-latest
     needs: [my_job]
-    # if: always() && (needs.my_job.result == 'failure')
+    if: always() && (needs.my_job.result == 'failure')
     steps:
       - name: Set notification message
         id: set-message
