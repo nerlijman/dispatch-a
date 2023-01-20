@@ -37,10 +37,10 @@ jobs:
           if [[ ${{ needs.my_job.result }} == "failure" ]]
           then
             AUTHOR='${{ github.event.inputs.author }}'
-            MESSAGE='There was an error building the image by $AUTHOR'
+            MESSAGE="There was an error building the image by $AUTHOR"
+            echo "$MESSAGE"
             STATUS="failure"
             ORIGIN='${{ github.event.inputs.origin }}'
-
           fi
           echo "::set-output name=message::$MESSAGE"
           echo "::set-output name=status::$STATUS"
