@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    - name: Print Event Name
+    - name: Print Variables
       run: |
             echo '${{ github.event_name }}'
             echo '${{ github.event.inputs.author }}'
             echo '${{ github.event.inputs.origin }}'
-      
+            
     - name: Make it fail
       run: pytest
 
@@ -41,17 +41,21 @@ jobs:
           then
             AUTHOR='${{ github.event.inputs.author }}'
             MESSAGE="There was an error building the image by $AUTHOR"
-            echo "$MESSAGE"
             STATUS="failure"
             ORIGIN='${{ github.event.inputs.origin }}'
           fi
-          echo "::set-output name=message::$MESSAGE"
-          echo "::set-output name=status::$STATUS"
+          echo "origin=$ORIGIN" >> $GITHUB_ENV
+          echo "message=$MESSAGE" >> $GITHUB_ENV
+          echo "status=$STATUS" >> $GITHUB_ENV
+          
+          echo ${{ env.origin }}
+          echo ${{ env.message }}
+          
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_MESSAGE: '${{ steps.set-message.outputs.message }}'
-          SLACK_COLOR: ${{ steps.set-message.outputs.status }}
-          SLACK_TITLE: '${{ steps.set-message.outputs.origin }}'
+          SLACK_MESSAGE: '${{ env.message }}'
+          SLACK_COLOR: ${{ env.status }}
+          SLACK_TITLE: '${{ env.origin }}'
           SLACK_USERNAME: 'Github Actions'
